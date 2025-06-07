@@ -1,10 +1,10 @@
 from app.model import load_model
-from langchain.vectorstores import FAISS
-from langchain.embeddings import HuggingFaceEmbeddings
+from langchain_community.vectorstores import FAISS
+from langchain_huggingface import HuggingFaceEmbeddings
 
-def load_vectors(index_path="vectorstore/"):
+def load_vectorstore(index_path="vectorstore/"):
     embeddings = HuggingFaceEmbeddings(model_name="all-MiniLM-L6-v2")
-    return FAISS.load_local(index_path,embeddings)
+    return FAISS.load_local(index_path,embeddings,allow_dangerous_deserialization=True)
 
 def answer_query(query , vectorstore, model_pipeline):
     docs = vectorstore.similarity_search(query,k=3)
