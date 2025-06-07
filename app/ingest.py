@@ -11,3 +11,8 @@ def ingest_pdf(pdf_path,index_path="vectorstore/"):
     embeddings = HuggingFaceBgeEmbeddings(model_name="all-MiniLM-L6-V2")
     vectorstore = FAISS.from_documents(chunks,embeddings)
     vectorstore.save_local(index_path)
+    print(f"{len(chunks)}")
+
+
+if __name__ == "__main__":
+    ingest_pdf("data/example.pdf")
