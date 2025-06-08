@@ -8,7 +8,7 @@ def load_vectorstore(index_path="vectorstore/"):
 
 def answer_query(query , vectorstore, model_pipeline):
     docs = vectorstore.similarity_search(query,k=3)
-    context = "\n".join([docs.page_count for doc in docs])
+    context = "\n".join([doc.page_content for doc in docs])
     prompt = f"Answer the question using the context below:\n\nContext:\n{context}\n\nQuestion:\n{query}\n\nAnswer:"
  
     output = model_pipeline(prompt)[0]['generated_text']

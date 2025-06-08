@@ -4,6 +4,7 @@ from langchain_community.embeddings import HuggingFaceEmbeddings
 from langchain.vectorstores import FAISS
 import os
 
+
 def ingest_pdf(pdf_path,index_path="vectorstore/"):
     loader = PyPDFLoader(pdf_path)
     documents = loader.load()
@@ -16,4 +17,4 @@ def ingest_pdf(pdf_path,index_path="vectorstore/"):
 
 
 if __name__ == "__main__":
-    ingest_pdf("data/example.pdf")
+    ingest_pdf("C:/Users/shafa/Documents/python projects/rag_chatbot/data/example.pdf")

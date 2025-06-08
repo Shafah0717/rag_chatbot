@@ -1,6 +1,17 @@
-from transformers import AutoModelForCausalLM,AutoTokenizer,pipeline
+from transformers import AutoModelForCausalLM, AutoTokenizer, pipeline
+import torch
+from dotenv import load_dotenv
+import os
+
+
+
 def load_model():
-    model_name = "tiiuae/falcon-rw-1b"
-    tokenizer = AutoTokenizer.from_pretrained(model_name)
-    model = AutoModelForCausalLM.from_pretrained(model_name)
-    return pipeline("text-generation", model=model, tokenizer=tokenizer, max_new_tokens=200)
+    load_dotenv() 
+    model_name = "mistralai/Mistral-7B-Instruct-v0.1"
+    token = os.getenv("tokenkey")  
+
+    tokenizer = AutoTokenizer.from_pretrained(model_name, token=token)
+    model = AutoModelForCausalLM.from_pretrained(model_name, device_map="auto", 
+    torch_dtype=torch.float16, token=token)
+
+    return pipeline("text-generation", model=model, tokenizer=tokenizer, max_new_tokens=300)
